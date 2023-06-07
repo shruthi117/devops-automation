@@ -25,7 +25,7 @@ pipeline {
                     sh 'docker login -u sachink0912 -p ${dockerhubpwd}'
                         
                     }
-                    sh 'docker push sachink0912/kubernetes:${env.BUILD_NUMBER}'
+                    sh 'docker push sachink0912/kubernetes:$BUILD_NUMBER'
                 }
             }
         }
