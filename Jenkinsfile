@@ -7,14 +7,14 @@ pipeline {
     stages{
         stage('Build Maven'){
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Sachin-k-09/devops-automation.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/shruthi117/devops-automation.git']]])
                 sh 'mvn clean install'
             }
         }
         stage('Build docker image'){
             steps{
                 script{
-                    sh 'docker build -t sachink0912/kubernetes:$BUILD_NUMBER .'
+                    sh 'docker build -t shruthi117/kubernetes:$BUILD_NUMBER .'
                 }
             }
         }
@@ -22,20 +22,14 @@ pipeline {
             steps{
                 script{
                     withCredentials([string(credentialsId: 'dockerpwd', variable: 'dockerhubpwd')]) {
-                    sh 'docker login -u sachink0912 -p ${dockerhubpwd}'
+                    sh 'docker login -u shruthi117 -p ${dockerhubpwd}'
                         
                     }
-                    sh 'docker push sachink0912/kubernetes:$BUILD_NUMBER'
+                    sh 'docker push shruthi117/kubernetes:$BUILD_NUMBER'
                 }
             }
         }
-        stage('SonarQube Analysis Stage') {
-            steps{
-                withSonarQubeEnv('sonar') { 
-                    sh "mvn clean verify sonar:sonar -Dsonar.projectKey=sonar-test"
-                }
-            }
-        }
+       
         stage('Deploy to K8s'){
             steps{
                 script{
