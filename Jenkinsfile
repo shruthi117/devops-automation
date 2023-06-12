@@ -36,7 +36,7 @@ pipeline {
                     sh 'kubectl create namespace dev'
                 }
             }
-        
+        }
         stage('Deploy to K8s'){
             steps{
                 script{
