@@ -30,17 +30,11 @@ pipeline {
             }
         }
        
-        stage('Create Namespace') {
-            steps {
-                script {
-                    sh 'kubectl create namespace dev'
-                }
-            }
-        }
         stage('Deploy to K8s'){
             steps{
                 script{
                     kubernetesDeploy (configs: 'deploymentservice.yaml',kubeconfigId: 'kubernetes')
+                     sh 'kubectl create namespace dev'
                 }
             }
         }
