@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment # Kubernetes resource kind we are creating
 metadata:
   name: spring-boot-k8s-deployment
+  namespace: dev
 spec:
   selector:
     matchLabels:
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
         - name: spring-boot-k8s
-          image: sachink0912/kubernetes:$BUILD_NUMBER # Image that will be used to containers in the cluster
+          image: shruthi117/kubernetes:$BUILD_NUMBER # Image that will be used to containers in the cluster
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080 # The port that the container is running on in the cluster
@@ -30,6 +31,6 @@ spec:
   selector:
     app: spring-boot-k8s
   ports:
-    - nodePort: 30163
+    - nodePort: 30117
       port: 8080 
       targetPort: 8080
