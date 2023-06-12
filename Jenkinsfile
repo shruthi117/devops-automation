@@ -34,7 +34,7 @@ pipeline {
             steps{
                 script{
                     kubernetesDeploy (configs: 'deploymentservice.yaml',kubeconfigId: 'kubernetes')
-                     sh 'kubectl create namespace dev'
+                 
                 }
             }
         }
